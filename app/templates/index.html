@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migration Chatbot ☁️</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #cce6ff, #e6f2ff);
+      text-align: center;
+      padding: 2em;
+    }
+    h1 {
+      color: #003366;
+    }
+    .chat-container {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5em;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    input[type="file"], input[type="text"], button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #0073e6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .response {
+      margin-top: 20px;
+      background: #f0f8ff;
+      padding: 1em;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>☁️ Migration Chatbot</h1>
+  <div class="chat-container">
+    <form id="upload-form">
+      <input type="file" name="file" id="file" accept=".csv" required />
+      <button type="submit">Upload CSV</button>
+    </form>
+
+    <input type="text" id="question" placeholder="Ask about your migration plan...">
+    <button onclick="askQuestion()">Ask</button>
+
+    <div class="response" id="response"></div>
+  </div>
+
+  <script>
+    document.getElementById("upload-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById("file");
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      alert(data.message);
+    });
+
+    async function askQuestion() {
+      const question = document.getElementById("question").value;
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question })
+      });
+      const data = await res.json();
+      document.getElementById("response").innerText = data.answer;
+    }
+  </script>
+</body>
+</html>

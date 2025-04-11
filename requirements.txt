@@ -1,0 +1,7 @@
+Flask
+pandas
+openai
+python-dotenv
+faiss-cpu
+scikit-learn
+sentence-transformers 

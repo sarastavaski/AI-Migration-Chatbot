@@ -1,0 +1,6 @@
+﻿App Name,Server,DC Exit Strategy,Migration Path,DC Exit Status,Environment,Destination Account
+InventoryApp,inv01,Retire,Lift and Shift,Completed,Production,aws-prod-123
+HRApp,hr01,Rehost,Refactor,In Progress,Staging,aws-staging-456
+BillingApp,bill02,Replatform,Rebuild,Not Started,Development,aws-dev-789
+CRMApp,crm03,Retain,Hybrid Cloud,Completed,Production,azure-prod-321
+AnalyticsApp,ana04,Replace,SaaS,Planned,Staging,gcp-analytics-654
